@@ -1,0 +1,11 @@
+{
+  "name": "synapse-server",
+  "version": "1.0.0",
+  "description": "Synapse role-based authentication API",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "seed-admin": "node seedAdmin.js"
+  }
+}
