@@ -12,9 +12,8 @@ const authRoutes = require("./routes/auth");
 const dashboardRoutes = require("./routes/dashboard");
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 5000;
-app.use(cors({ origin: process.env.CLIENT_URL }));
-mongoose.connect(process.env.MONGO_URI);
 
 if (!process.env.SESSION_SECRET || process.env.SESSION_SECRET.length < 32) {
   throw new Error("SESSION_SECRET must be at least 32 characters long.");
@@ -49,7 +48,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.COOKIE_SECURE === "true",
-      sameSite: "lax",
+      sameSite: process.env.COOKIE_SECURE === "true" ? "none" : "lax",
       maxAge: 1000 * 60 * 60 * 8,
       path: "/",
     },
